@@ -1,6 +1,6 @@
-## Clean Code - [Challenge] Converting MVC into MVVM and MVP
+## Clean Code & Design Pattern - [Challenge] Converting MVC into MVVM and MVP
 
-In this challenge, I changed this Android MVC project to
+In this challenge, I convert this Android MVC project to
 MVVM and MVP Design Patterns (make a different folder for each design pattern).
 
 ## Screenshot
