@@ -1,0 +1,1 @@
+Pada challenge kali ini, rekan-rekan mahasiswa diminta mengkonversi project Android ini menjadi Design Pattern MVVM dan MVP (buat dua project terpisah). Kode program dapat dilihat di https://github.com/azisnaufal/challenge-ccdp.
