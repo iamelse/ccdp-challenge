@@ -1,26 +1,43 @@
 package com.example.tempratureconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity {
 
     private EditText celsius;
     private EditText fahrenheit;
     private EditText reamur;
-    private MainPresenter presenter;
+
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        presenter = new MainPresenter(this);
 
         initView();
+        initViewModel();
+        observeTemperature();
+    }
+
+    private void observeTemperature() {
+        viewModel.getCelsius().observe(this, celsius -> {
+            String parsedReamur = getString(R.string.float_to_string, celsius.toReamur());
+            String parsedFahrenheit = getString(R.string.float_to_string, celsius.toFahrenheit());
+
+            reamur.setText(parsedReamur);
+            fahrenheit.setText(parsedFahrenheit);
+        });
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     }
 
     private void initView() {
@@ -41,24 +58,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.calculateTemperature(editable.toString());
+                String celsius = editable.toString();
+                viewModel.setCelsius(celsius);
             }
         });
-    }
-
-    @Override
-    public void showReamur(String reamur) {
-        this.reamur.setText(reamur);
-    }
-
-    @Override
-    public void showFahrenheit(String fahrenheit) {
-        this.fahrenheit.setText(fahrenheit);
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter = null;
-        super.onDestroy();
     }
 }
