@@ -1,5 +1,6 @@
 package com.example.tempratureconverter;
 
 public interface MainView {
-    String getCelsius();
+    void showReamur(String reamur);
+    void showFahrenheit(String fahrenheit);
 }
